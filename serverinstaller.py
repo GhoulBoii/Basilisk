@@ -1,7 +1,7 @@
-"""Module facilitating the changing of path."""
-import os
 """Module acting as curl replacement"""
 from requests import get
+"""Module facilitating the changing of path."""
+import os
 
 name = ""
 directory = ""
@@ -30,17 +30,17 @@ def changing_path():
 def installing_jar():
     match server:
         case "purpur":
-            response = get(f"https://api.purpurmc.org/v2/purpur/{version}/latest/download")
+            response = get(f"https://api.purpurmc.org/v2/purpur/{version}/latest/download", timeout = 10)
         case "paper":
             api = "https://papermc.io/api/v2/projects/paper"
             headers = {"accept":"application/json"}
-            link = get(f"{api}/version_group/{version}/builds", headers = headers).json()["builds"][-1]
-            response = get(f"{api}/versions/{link['version']}/builds/{link['build']}/downloads/paper-{link['version']}-{link['build']}.jar")
+            link = get(f"{api}/version_group/{version}/builds", headers = headers, timeout = 10).json()["builds"][-1]
+            response = get(f"{api}/versions/{link['version']}/builds/{link['build']}/downloads/paper-{link['version']}-{link['build']}.jar", timeout = 10)
         case "vanilla":
-            link = get("https://launchermeta.mojang.com/mc/game/version_manifest.json").json()["versions"]
+            link = get("https://launchermeta.mojang.com/mc/game/version_manifest.json", timeout = 10).json()["versions"]
             for i in link:
                 if i['id'] == version:
-                    response = get(get(i['url']).json()["downloads"]["server"]["url"])
+                    response = get(get(i['url'], timeout = 10).json()["downloads"]["server"]["url"], timeout = 10)
         case _:
             print("Wrong input")
 
