@@ -1,4 +1,6 @@
+"""Module facilitating the changing of path."""
 import os
+"""Module acting as curl replacement"""
 from requests import get
 
 name = ""
@@ -13,7 +15,7 @@ def input_values():
     directory = input("Where do you want to install your server?: ")
     version = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
     server = input("Enter what server you want: (purpur*, paper, vanilla): ")
- 
+
     if not version:
         version = "1.20.1"
     if not server:
@@ -42,11 +44,11 @@ def installing_jar():
         case _:
             print("Wrong input")
 
-    with open("server.jar","wb") as file:
+    with open("server.jar", "wb", encoding="utf-8") as file:
         file.write(response.content)
 
 def accept_eula():
-    with open("eula.txt","w") as file:
+    with open("eula.txt", "w", encoding="utf-8") as file:
         file.write("eula=true")
 
 input_values()
