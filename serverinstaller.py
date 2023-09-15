@@ -1,11 +1,6 @@
 import os
 from requests import get
 
-# TODO: add more versions
-# TODO: check if windows or linux
-# TODO: add playit support
-# TODO: add mods/plugins support
-
 name = ""
 directory = ""
 version = ""
@@ -18,7 +13,7 @@ def input_values():
     directory = input("Where do you want to install your server?: ")
     version = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
     server = input("Enter what server you want: (purpur*, paper, vanilla): ")
-    
+ 
     if not version:
         version = "1.20.1"
     if not server:
@@ -58,5 +53,5 @@ input_values()
 changing_path()
 installing_jar()
 accept_eula()
- 
+
 print("Server has been installed without errors. Just run run.py and the server will start. Enjoy!")
