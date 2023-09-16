@@ -1,42 +1,42 @@
 import os
 from requests import get
 
-name = ""
-directory = ""
-version = ""
-server = ""
+NAME = ""
+DIR = ""
+VERSION = ""
+SERVER = ""
 
 def input_values():
     print("Enter your choices below. Options marked with * are the default.")
-    global name, directory, version, server
-    name = input("Enter the name of the minecraft server: ")
-    directory = input("Where do you want to install your server?: ")
-    version = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
-    server = input("Enter what server you want: (purpur*, paper, vanilla): ")
+    global NAME, DIR, VERSION, SERVER
+    NAME = input("Enter the name of the minecraft server: ")
+    DIR = input("Where do you want to install your server?: ")
+    VERSION = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
+    SERVER = input("Enter what server you want: (purpur*, paper, vanilla): ")
 
-    if not version:
-        version = "1.20.1"
-    if not server:
-        server = "purpur"
+    if not VERSION:
+        VERSION = "1.20.1"
+    if not SERVER:
+        SERVER = "purpur"
 
 def changing_path():
-    path = os.path.join(directory,name)
+    path = os.path.join(DIR,NAME)
     os.mkdir(path)
     os.chdir(path)
 
 def installing_jar():
-    match server:
+    match SERVER:
         case "purpur":
-            response = get(f"https://api.purpurmc.org/v2/purpur/{version}/latest/download", timeout = 10)
+            response = get(f"https://api.purpurmc.org/v2/purpur/{VERSION}/latest/download", timeout = 10)
         case "paper":
             api = "https://papermc.io/api/v2/projects/paper"
             headers = {"accept":"application/json"}
-            link = get(f"{api}/version_group/{version}/builds", headers = headers, timeout = 10).json()["builds"][-1]
+            link = get(f"{api}/version_group/{VERSION}/builds", headers = headers, timeout = 10).json()["builds"][-1]
             response = get(f"{api}/versions/{link['version']}/builds/{link['build']}/downloads/paper-{link['version']}-{link['build']}.jar", timeout = 10)
         case "vanilla":
             link = get("https://launchermeta.mojang.com/mc/game/version_manifest.json", timeout = 10).json()["versions"]
             for i in link:
-                if i['id'] == version:
+                if i['id'] == VERSION:
                     response = get(get(i['url'], timeout = 10).json()["downloads"]["server"]["url"], timeout = 10)
         case _:
             print("Wrong input")
