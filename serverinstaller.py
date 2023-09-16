@@ -1,7 +1,5 @@
-"""Module acting as curl replacement"""
-from requests import get
-"""Module facilitating the changing of path."""
 import os
+from requests import get
 
 name = ""
 directory = ""
@@ -26,7 +24,6 @@ def changing_path():
     os.mkdir(path)
     os.chdir(path)
 
-
 def installing_jar():
     match server:
         case "purpur":
@@ -44,7 +41,7 @@ def installing_jar():
         case _:
             print("Wrong input")
 
-    with open("server.jar", "wb", encoding="utf-8") as file:
+    with open("server.jar", "wb") as file:
         file.write(response.content)
 
 def accept_eula():
