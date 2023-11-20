@@ -6,18 +6,25 @@ DIR = ""
 VERSION = ""
 SERVER = ""
 
-def input_values():
-    print("Enter your choices below. Options marked with * are the default.")
-    global NAME, DIR, VERSION, SERVER
-    NAME = input("Enter the name of the minecraft server: ")
-    DIR = input("Where do you want to install your server?: ")
-    VERSION = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
-    SERVER = input("Enter what server you want: (purpur*, paper, vanilla): ")
+def input_name():
+    name = input("Enter the name of the minecraft server: ")
+    return name
 
-    if not VERSION:
-        VERSION = "1.20.1"
-    if not SERVER:
-        SERVER = "purpur"
+def input_dir():
+    direc = input("Where do you want to install your server?: ")
+    return direc
+
+def input_version():
+    version = input("Enter version number you want to use: (1.20.1*, 1.19.1): ")
+    if not version:
+        version = "1.20.1"
+    return version
+
+def input_server():
+    server = input("Enter what server you want: (purpur*, paper, vanilla): ")
+    if not server:
+        server = "purpur"
+    return server
 
 def changing_path():
     path = os.path.join(DIR,NAME)
@@ -48,9 +55,14 @@ def accept_eula():
     with open("eula.txt", "w", encoding="utf-8") as file:
         file.write("eula=true")
 
-input_values()
+print("Enter your choices below. Options marked with * are the default.")
+NAME = input_name()
+DIR = input_dir()
+SERVER = input_server()
+VERSION = input_version()
 changing_path()
 installing_jar()
 accept_eula()
 
 print("Server has been installed without errors. Just run run.py and the server will start. Enjoy!")
+
