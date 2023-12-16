@@ -5,6 +5,7 @@ NAME = ""
 DIR = ""
 VERSION = ""
 SERVER = ""
+PATH = ""
 
 def input_name():
     name = input("Enter the name of the minecraft server: ")
@@ -26,10 +27,10 @@ def input_server():
         server = "purpur"
     return server
 
-def changing_path():
-    path = os.path.join(DIR,NAME)
-    os.mkdir(path)
-    os.chdir(path)
+def changing_path(dir,name):
+    PATH = os.path.join(os.path.expanduser(dir),name)
+    os.mkdir(PATH)
+    os.chdir(PATH)
 
 def installing_jar():
     match SERVER:
@@ -60,7 +61,7 @@ NAME = input_name()
 DIR = input_dir()
 SERVER = input_server()
 VERSION = input_version()
-changing_path()
+changing_path(DIR,NAME)
 installing_jar()
 accept_eula()
 
