@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from requests import get
 
 NAME = ""
@@ -28,9 +29,9 @@ def input_server():
     return server
 
 def changing_path(dir,name):
-    PATH = os.path.join(os.path.expanduser(dir),name)
-    os.mkdir(PATH)
-    os.chdir(PATH)
+    NEWDIR = Path(dir, name).expanduser()
+    Path(NEWDIR).mkdir(parents=True, exist_ok=True)
+    os.chdir(NEWDIR)
 
 def installing_jar():
     match SERVER:
